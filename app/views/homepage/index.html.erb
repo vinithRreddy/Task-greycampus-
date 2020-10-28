@@ -1,0 +1,19 @@
+
+<% if notice %>
+<aside id="notice"><%= notice %></aside>
+<% end %>
+<h1>FAQ's</h1>
+<ul class="catalog">
+<% @posts.each do |post| %>
+<li>
+
+<h2><%= post.title %></h2>
+<p>
+<%= sanitize(post.body) %>
+</p>
+<div class="tags">
+<%= post.tags %>
+</div>
+</li>
+<% end %>
+</ul>

@@ -1,0 +1,43 @@
+<% if notice %>
+<aside id="notice"><%= notice %></aside>
+<% end %>
+
+
+<h1>Posts</h1>
+
+<table>
+  <tfoot>
+    <tr>    
+<td colspan="3">
+<%= link_to 'New Post', new_post_path %>
+</td>
+</tr>
+</tfoot>
+
+
+  <tbody>
+    <% @posts.each do |post| %>
+     <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
+
+<td class="body">
+<h1><%= post.title %></h1>
+<p>
+<%= truncate(strip_tags(post.body),length: 80) %>
+</p>
+</td>
+<td class="actions">
+<ul>
+<li><%= link_to 'Show', post %></li>
+<li><%= link_to 'Edit', edit_post_path(post) %></li>
+<li>
+<%= link_to 'Destroy',post,method: :delete,data: { confirm: 'Are you sure?' } %>
+</li>
+</ul>
+</td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<br>
+ 
