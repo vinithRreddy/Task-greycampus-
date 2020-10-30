@@ -1,12 +1,23 @@
 class ApplicationController < ActionController::Base
-    before_action :authorize
-# ...
+    
 
- protected
+helper_method :current_user, :logged_in?
 
- def authorize
- unless User.find_by(id: session[:user_id])
- redirect_to login_url, notice: "Please log in"
- end
- end
+def current_user
+    #here we are using ||= because if a value is already asigned to the current_user then we dont want to perform User.find(session[:user_id]) again
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+end
+
+def logged_in?
+    #here we are using !! to convert current_user to a boolean
+    !!current_user
+end
+
+def require_user
+    if !logged_in?
+      flash[:alert] = "You must be logged in to perform that action"
+      redirect_to login_path
+    end
+end
+
 end

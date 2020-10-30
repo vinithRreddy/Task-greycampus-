@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   # GET /posts
   # GET /posts.json
@@ -73,4 +74,10 @@ class PostsController < ApplicationController
     def post_params
       params.require(:post).permit(:title, :body, :tags)
     end
+    def require_same_user
+      if current_user != @question.user
+        flash[:alert] = "You can only edit or delete your own question"
+        redirect_to login_path
+      end
+    end 
 end
