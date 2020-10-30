@@ -15,5 +15,13 @@
 <%= post.tags %>
 </div>
 </li>
-<% end %>
+
 </ul>
+<table>
+<tr><td><h4>Comments</h4></td></tr>
+      <% post.comments.each do |c|%>
+        <tr><td><%= c.comment %>&nbsp;&nbsp;By: <%= c.user.name %></td></tr>
+      <% end %>
+      </tr>
+      </table>
+<% end %>
